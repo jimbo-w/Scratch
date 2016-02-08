@@ -1,11 +1,6 @@
 package datastructure;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 public class LinkedList<T> {
-    private static final Logger logger = LoggerFactory.getLogger(LinkedList.class);
-
     Node<T> root = null;
 
     private class Node<T> {

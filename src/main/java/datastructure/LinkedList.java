@@ -1,11 +1,11 @@
 package datastructure;
 
 public class LinkedList<T> {
-    Node<T> root = null;
+    Node root = null;
 
-    private class Node<T> {
+    private class Node {
         T value;
-        Node<T> next = null;
+        Node next = null;
 
         public Node(T value) {
             this.value = value;
@@ -13,23 +13,23 @@ public class LinkedList<T> {
     }
 
     public void addFirst(T value) {
-        Node<T> node = new Node<>(value);
+        Node node = new Node(value);
         node.next = root;
         root = node;
     }
 
     public void addLast(T value) {
-        Node<T> node = root;
+        Node node = root;
 
         if (root == null) {
-            root = new Node<>(value);
+            root = new Node(value);
         } else {
 
             while (node.next != null) {  // O(n)
                 node = node.next;
             }
 
-            node.next = new Node<>(value);
+            node.next = new Node(value);
         }
     }
 
@@ -56,8 +56,8 @@ public class LinkedList<T> {
 
             return value;
         } else {
-            Node<T> next = root;
-            Node<T> nextNext = root.next;
+            Node next = root;
+            Node nextNext = root.next;
 
             while (nextNext.next != null) {  // O(n)
                 next = next.next;
@@ -92,7 +92,7 @@ public class LinkedList<T> {
 
         } else {
             // >=2 element in the list
-            Node<T> node = root;
+            Node node = root;
 
             while (node.next != null) {  // O(n)
 

@@ -3,6 +3,8 @@ package datastructure;
 import java.util.*;
 import java.util.LinkedList;
 
+import static datastructure.BinaryTree.TraversalType.*;
+
 public class BinaryTree<T extends Comparable<T>> {
 
     private class Node {
@@ -12,6 +14,10 @@ public class BinaryTree<T extends Comparable<T>> {
         public Node(T value) {
             this.value = value;
         }
+    }
+
+    enum TraversalType {
+        DFS, BFS
     }
 
     Node root = null;
@@ -57,18 +63,28 @@ public class BinaryTree<T extends Comparable<T>> {
     }
 
     public Set<T> traverse() {
-        return traverse(root);
+        return traverse(DFS);
     }
 
-    private Set<T> traverse(Node node) {
+    public Set<T> traverse(TraversalType type) {
+
+        switch (type) {
+            case DFS: return depthFirstTraversal(root);
+            case BFS: return breadthFirstTraversal();
+            default: throw new IllegalArgumentException(String.format("Unrecognised traversal type: %s", type.name()));
+        }
+
+    }
+
+    private Set<T> depthFirstTraversal(Node node) {
         Set<T> set = new LinkedHashSet<>();
 
         if(root == null)
             return set;
         else {
-            if(node.left != null) set.addAll(traverse(node.left));
+            if(node.left != null) set.addAll(depthFirstTraversal(node.left));
             set.add(node.value);
-            if(node.right != null) set.addAll(traverse(node.right));
+            if(node.right != null) set.addAll(depthFirstTraversal(node.right));
         }
 
         return set;
@@ -97,6 +113,21 @@ public class BinaryTree<T extends Comparable<T>> {
 
     @Override
     public String toString() {
-        return traverse(root).toString();
+        return depthFirstTraversal(root).toString();
+    }
+
+    public boolean isBalanced() {
+        Node n = root;
+        
+        if(n == null) return true;
+        else {
+            int heightLeft = getHeight(n.left);
+        }
+
+        return false;
+    }
+
+    private int getHeight(Node left) {
+        return 0;
     }
 }

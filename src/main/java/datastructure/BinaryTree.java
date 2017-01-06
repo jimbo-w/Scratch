@@ -7,6 +7,14 @@ import static datastructure.BinaryTree.TraversalType.*;
 
 public class BinaryTree<T extends Comparable<T>> {
 
+    public BinaryTree(List<T> values) {
+        values.forEach(this::add);
+    }
+
+    public BinaryTree() {
+
+    }
+
     private class Node {
         T value;
         Node left, right = null;
@@ -69,9 +77,12 @@ public class BinaryTree<T extends Comparable<T>> {
     public Set<T> traverse(TraversalType type) {
 
         switch (type) {
-            case DFS: return depthFirstTraversal(root);
-            case BFS: return breadthFirstTraversal();
-            default: throw new IllegalArgumentException(String.format("Unrecognised traversal type: %s", type.name()));
+            case DFS:
+                return depthFirstTraversal(root);
+            case BFS:
+                return breadthFirstTraversal();
+            default:
+                throw new IllegalArgumentException(String.format("Unrecognised traversal type: %s", type.name()));
         }
 
     }
@@ -79,18 +90,18 @@ public class BinaryTree<T extends Comparable<T>> {
     private Set<T> depthFirstTraversal(Node node) {
         Set<T> set = new LinkedHashSet<>();
 
-        if(root == null)
+        if (root == null)
             return set;
         else {
-            if(node.left != null) set.addAll(depthFirstTraversal(node.left));
+            if (node.left != null) set.addAll(depthFirstTraversal(node.left));
             set.add(node.value);
-            if(node.right != null) set.addAll(depthFirstTraversal(node.right));
+            if (node.right != null) set.addAll(depthFirstTraversal(node.right));
         }
 
         return set;
     }
 
-    public Set<T> breadthFirstTraversal() {
+    private Set<T> breadthFirstTraversal() {
         Set<T> set = new LinkedHashSet<>();
 
         if (root == null) {
@@ -103,8 +114,8 @@ public class BinaryTree<T extends Comparable<T>> {
                 Node n = q.remove();
                 set.add(n.value);
 
-                if(n.left != null) q.add(n.left);
-                if(n.right != null) q.add(n.right);
+                if (n.left != null) q.add(n.left);
+                if (n.right != null) q.add(n.right);
             }
         }
 
@@ -118,16 +129,27 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public boolean isBalanced() {
         Node n = root;
-        
-        if(n == null) return true;
+
+        if (n == null)
+            return true;
         else {
-            int heightLeft = getHeight(n.left);
+            int heightLeft = height(n.left);
+            int heightRight = height(n.right);
+
+            return Math.abs(heightLeft - heightRight) <= 1;
         }
-
-        return false;
     }
 
-    private int getHeight(Node left) {
-        return 0;
+    public int height() {
+        return height(root);
     }
+
+    private int height(Node node) {
+        if (node == null) return 0;
+        else {
+            return Math.max(height(node.left), height(node.right)) + 1;
+        }
+    }
+
+
 }

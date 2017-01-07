@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.IsNull.nullValue;
 
 public class LinkedListTest {
 
@@ -33,6 +33,7 @@ public class LinkedListTest {
     @Test
     public void remove() {
         String value = list.removeFirst();
+        assertThat(value, is(nullValue()));
         assertThat(value, is(nullValue()));
 
         list.addLast("1");
